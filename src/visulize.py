@@ -1,6 +1,12 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 
+__all__ = [
+    "draw_emissions_trends",
+    "draw_emissions_heatmap",
+    "draw_emission_prediction",
+]
+
 
 # Draw Emissions Trends
 def draw_emissions_trends(data, city_name):
@@ -41,4 +47,26 @@ def draw_emissions_heatmap(data, city_name):
     plt.xlabel("Date")
     plt.ylabel("Sector")
     plt.colorbar()
+    plt.show()
+
+
+# Draw Emission Prediction
+# 日期模型数据城市
+def draw_emission_prediction(daily_data, predicted_values):
+    # 绘图
+    plt.figure(figsize=(14, 8))
+    plt.plot(daily_data["date"], daily_data["value"], label="Historical Emissions")
+    plt.plot(
+        pd.date_range(daily_data["date"].iloc[-1], periods=1095),
+        predicted_values,
+        label="Predicted Emissions (Bidirectional LSTM)",
+        color="green",
+    )
+    plt.title(
+        "Daily Carbon Emissions Prediction for Melbourne (Next 3 Years) - Bidirectional LSTM Model"
+    )
+    plt.xlabel("Date")
+    plt.ylabel("Emissions")
+    plt.legend()
+    plt.grid(True)
     plt.show()
